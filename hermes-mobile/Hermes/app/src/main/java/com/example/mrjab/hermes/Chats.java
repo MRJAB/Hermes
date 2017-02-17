@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
@@ -13,6 +14,7 @@ import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
+
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -23,9 +25,11 @@ import com.baoyz.swipemenulistview.SwipeMenuCreator;
 import com.baoyz.swipemenulistview.SwipeMenuItem;
 import com.baoyz.swipemenulistview.SwipeMenuListView;
 
+
 public class Chats extends AppCompatActivity{
 
     private Toolbar toolbar;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +39,7 @@ public class Chats extends AppCompatActivity{
         SwipeMenuListView listView= (SwipeMenuListView) findViewById(R.id.listView);
         System.out.println("started");
         Toast.makeText(Chats.this,"started",Toast.LENGTH_LONG).show();
+
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitleTextColor(Color.WHITE);
@@ -141,6 +146,7 @@ public class Chats extends AppCompatActivity{
         return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dipValue, metrics);
     }
 
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -172,6 +178,7 @@ public class Chats extends AppCompatActivity{
 
         return super.onOptionsItemSelected(item);
     }
+
 
 
 

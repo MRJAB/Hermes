@@ -1,5 +1,6 @@
 package com.example.mrjab.hermes;
 
+
 import java.util.Date;
 
 /**
@@ -7,6 +8,7 @@ import java.util.Date;
  */
 
 public class ChatMessage {
+
     public int left;
     public String message;
     public Date received;
@@ -16,5 +18,6 @@ public class ChatMessage {
         this.left = left;
         this.message = message;
         this.received = received;
+
     }
 }

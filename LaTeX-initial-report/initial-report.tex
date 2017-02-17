@@ -1,0 +1,101 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+
+\title{Distributed Chat System}
+\author{Hermes Team Initial Report}
+\date{February 2017}
+
+\begin{document}
+
+\maketitle
+\section{Project Description}
+\subsection {Aims and Objectives} 
+\begin{itemize}
+\item \textbf {Improve communication}: the main aim of this project is to develop a distributed chat system that allows users to communicate with each other, search for other people and initiate a chat with them in an attempt to improve communication between users. 
+    
+\item \textbf {Improve the level of use (usability)}: another core aim is that the system is to be used by a lot more users if it is to be developed on two different platforms e.g. web and mobile applications.  
+ 
+\item \textbf{Raise user’s satisfaction}: secondary aim would be efficiency e.g. a more efficient system means that the system should have the capacity to still process the exchange of messages or the searching in a reasonable period of time (as short as possible) even in the events of heavy loads which will increase user’s satisfaction. This could also be achieved by making the system user-friendly, easy to use and more-engaging compared to the existing ones. 
+ 
+\item \textbf{Provide higher security}: another secondary aim would be to implement security features e.g. hashing of passwords and encryption/decryption of messages in order to make the system as secure as possible and to protect users’ messages and information from being accessed and probably compromised. 
+ 
+\end{itemize}
+
+\par A list of objectives that describes how the above aims will be achieved has been set as follows: 
+
+\begin{itemize}
+\item Research and investigate similar systems and get a better understanding of how they work and what features they have. 
+\item Identify the functional and non-functional requirements and prioritise these requirements e.g. the most important ones will be implemented first and the ones that come next will be implemented only if there will be enough time. 
+\item Identify potential risks that may arise during development and set mitigation and contingency plans where necessary. 
+\item Design and implement a relational database schema using MySQL in order to store, manipulate and retrieve the data. 
+\item Design the wire-frames prototype for both systems. 
+\item Implement the web pages required e.g. using HTML5 and CSS3 for the web app. 
+\item Develop the back-end functionalities (the server side) i.e. using php for the web application. 
+\item Develop the front-end and ensure connections are properly established and clients’ requests are properly processed by the server. 
+\item Develop the other client’s side on a different platform than the one already chosen i.e. Android app and make it work with the server. 
+\item Perform appropriate unit testing to check for both correctness and reliability i.e. correctness does not guarantee reliability. 
+\item Review documentation and the software system to verify it against its specifications and critically evaluate it in terms of reliability and usability. 
+\end{itemize}
+
+\subsection{Project Management, Requirements and Progress}
+
+\begin{flushleft}
+For the past weeks, we have completed the planning phase. We have made a list of objectives and by executing each of those, we will be able to accomplish the project’s aims. We have chosen Agile as the project management methodology and a framework called ‘Scrum’ will be used to manage and control this project and meet the business requirements. Scrum includes sprints and all sprints have the same duration meaning that in each sprint different functionalities will be developed. Therefore, the software system will be developed in iterations, adaptable to new changes and easier to test and maintain.
+\end {flushleft}
+
+\begin{flushleft}
+We have also looked into website and mobile chat systems such as eStreamChat, LiveChat, iMessage, Telegram and WhatsApp to get a better understanding of how such systems work and to take in considerations all the initial functionalities during the development of the proposed system. 
+\end{flushleft}
+
+\begin{flushleft}
+We have identified the system actors including primary and secondary actors and a set of use cases which are also considered as the functional requirements of the system and we prioritised them as follows: 
+\newline
+\underline{Must Have}
+\begin{itemize}
+\item \textbf{Register}:	The user must be able to sign up to the website or the mobile application. 
+\item \textbf{Log in}: The user must be able to log-in into the system and to be authenticated. 
+\item \textbf{Search User}: The user will be able to search for another user by user name or email using the system. 
+\item \textbf{Initiate Chat}: The user must be able to start a new chat with people he/she searched and found. 
+\item \textbf{Send Message}: The user must be able to send messages once a chat is initiated. 
+\item \textbf{Receive Message}: The user must be able to receive messages (responses) from the other end. 
+\item \textbf{Search Chat}: The user should be able to search chats they have initiated. 
+\end{itemize}
+
+\underline{Could Have}
+\begin{itemize}
+\item \textbf{Search Message}: The user could be able to search messages within a particular chat. 
+\item \textbf{Delete Message}: The user could be able to delete a message.
+\item \textbf{Delete Chat}: The user could be able to delete the entire chat. 
+\item \textbf{Create Group}: The user could be able to create a group chat adding as many contacts as they wish. 
+\item \textbf{Add Attachment}: The user could be able to attach a file e.g. pdf, png, etc.
+\item \textbf{Update Settings}: The user could be able to update their settings. 
+\item \textbf{Upload Profile Image}: The user could be able to upload a profile image to their profile. 
+\end{itemize}
+We have also taken into account the constraints under which the system will operate such as timing and security constraints. 
+\end{flushleft}
+
+\begin{flushleft}
+In terms of design and implementation, we have designed the wire-frames prototype for both platforms. We have also designed a relational database schema and constructed an Entity-Relationship Diagram to illustrate and follow our designed schema. Thereafter, we have implemented the database using MySQL and we have launched Android Studio and started developing the initial screens for the application such as login, registration, user home page in which the user will be able to search for people and select a chat from the list. Additionally, we have created a screen which shows the selected chat and all messages exchanged to illustrate the system functionality upon selecting a chat. 
+We have also implemented a high level prototype for our web application using HTML, and CSS and we are currently working on the core implementation (back-end) for both platforms. 
+\end{flushleft}
+
+
+\section{Project Organisation}
+
+\begin{flushleft}
+Our team consists of five members. Each of us may have different interests and competences in some areas but not in all areas. We do not expect each other to be fully competent in a particular area. However, we expect each of us to be collaborating in all aspects of the project and at every stage of it. This is the opportunity to put our communication and collaboration skills into practice and develop them further. This also ensures we are on track and avoids any violations to the plan/schedule. In the case where a team member gets stuck on a particular task or they are unable to complete their assigned tasks for some reason, we all have to help to overcome such issues and most importantly complete the tasks properly and on time. Criticism is good in some cases but it should be avoidable. Instead, we have to motivate each other and especially those who may lose motivation in the late stages and keep them on track.
+\end{flushleft}
+
+\begin{flushleft}
+In group projects, communication and collaboration are the most important and to keep up a good level of communication and collaboration we have created a group chat on WhatsApp. We have also created a repository on GitHub and we are using LaTeX to write our documents as requested. We may also create a group chat on Facebook and share documents on Google Docs and additional tools may be used if necessary. Skype (virtual meetings) may also be considered as alternatives of in-person meetings due to weather or other conditions. As different members may be more comfortable at using some tools, we will make the selection of tools as flexible as possible.
+\end{flushleft}
+
+\begin{flushleft}
+Regarding handling peer assessment, each member will be given a score not only on completing their assigned tasks but also on the involvement of that member throughout the entire process. Good involvement relies upon a wide range of factors such as good communication, respect to the team members and the project, assisting others when required, completing any individual tasks assigned on time, asking for help if needed and as early as possible, asking if more tasks are to be done or to assist others on their tasks if a member has completed their own tasks and finally attending group meetings and letting group members informed in cases of emergency so we make changes to the schedule and adapt to these new changes. 
+\end{flushleft}
+
+\begin{flushleft}
+Any conflict that may arise will be dealt with appropriately depending on the nature of the conflict. Some conflicts are really hard to handle such as anti-social behaviour but some could be handled easier e.g. if the team member is not putting in the same work as others but handling it could be challenging depending on when it occurs. Based on the policies we have set; such conflicts are very unlikely to occur. In short, our aim is not to watch and judge each other but to produce a work with a reasonable quality. This ensures a good outcome and a successful project. 
+\end{flushleft}
+
+\end{document}
