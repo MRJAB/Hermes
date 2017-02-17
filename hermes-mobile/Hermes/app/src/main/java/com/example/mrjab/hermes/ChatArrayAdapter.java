@@ -19,6 +19,7 @@ import java.util.List;
 class ChatArrayAdapter extends ArrayAdapter<ChatMessage> {
 
     private TextView chatText;
+    private  TextView dateText;
     private List<ChatMessage> chatMessageList = new ArrayList<ChatMessage>();
     private Context context;
 
@@ -45,13 +46,22 @@ class ChatArrayAdapter extends ArrayAdapter<ChatMessage> {
         ChatMessage chatMessageObj = getItem(position);
         View row = convertView;
         LayoutInflater inflater = (LayoutInflater) this.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        if (chatMessageObj.left) {
+        if (chatMessageObj.left == 0) {
             row = inflater.inflate(R.layout.right, parent, false);
-        }else{
+        }else if (chatMessageObj.left == 1){
             row = inflater.inflate(R.layout.left, parent, false);
+        }
+        else
+        {
+            row = inflater.inflate(R.layout.center,parent,false);
         }
         chatText = (TextView) row.findViewById(R.id.msgr);
         chatText.setText(chatMessageObj.message);
+
+        if(chatMessageObj.received !=null) {
+            dateText = (TextView) row.findViewById(R.id.date);
+            dateText.setText(chatMessageObj.received.getHours() + ":" + chatMessageObj.received.getMinutes());
+        }
         return row;
     }
 }

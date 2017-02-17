@@ -25,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
     {
         Intent i=new Intent(MainActivity.this,Chats.class);
         startActivity(i);
+        finish();
     }
 
     public void InitHomePage()
