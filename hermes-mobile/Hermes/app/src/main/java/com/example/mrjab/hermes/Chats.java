@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 
+import android.os.AsyncTask;
+import android.os.Handler;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
@@ -25,10 +27,15 @@ import com.baoyz.swipemenulistview.SwipeMenuCreator;
 import com.baoyz.swipemenulistview.SwipeMenuItem;
 import com.baoyz.swipemenulistview.SwipeMenuListView;
 
+import java.math.BigInteger;
+import java.util.ArrayList;
+
 
 public class Chats extends AppCompatActivity{
 
     private Toolbar toolbar;
+    ChatList chatList;
+    ArrayList<ChatInfo> allChats= new ArrayList<>();
 
 
     @Override
@@ -139,6 +146,8 @@ public class Chats extends AppCompatActivity{
         });
 
         //listView.setSwipeDirection(SwipeMenuListView.DIRECTION_LEFT);
+
+       new GetChats().execute();
     }
 
     public static float dipToPixels(Context context, float dipValue) {
@@ -182,7 +191,27 @@ public class Chats extends AppCompatActivity{
         return super.onOptionsItemSelected(item);
     }
 
+    class GetChats extends AsyncTask<Void, Void, Void> {
 
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            // TODO Auto-generated method stub
+            chatList = new ChatList(1);
+            allChats = chatList.getChats();
+            int size = allChats.size();
+            //Do Your stuff here..
+            return null;
+        }
+        @Override
+        protected void onPostExecute(Void result) {
+            super.onPostExecute(result);
+
+            //this method will be running on UI thread
+
+            Toast.makeText(getApplicationContext(),""+allChats.size(),Toast.LENGTH_LONG).show();
+        }
+    }
 
 
 }
