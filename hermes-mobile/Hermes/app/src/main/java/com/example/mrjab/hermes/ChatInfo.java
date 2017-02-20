@@ -1,5 +1,7 @@
 package com.example.mrjab.hermes;
 
+import android.graphics.Bitmap;
+
 import java.math.BigInteger;
 import java.util.Date;
 
@@ -13,6 +15,7 @@ public class ChatInfo {
     BigInteger userIDReceiver;
     String keyValue;
     Date createDate;
+    Bitmap profilepPic;
 
     public ChatInfo(){
         // Initialize variables on creation of a new chat
@@ -20,6 +23,14 @@ public class ChatInfo {
 
     public BigInteger getChatID() {
         return chatID;
+    }
+
+    public Bitmap getProfilepPic() {
+        return profilepPic;
+    }
+
+    public void setProfilepPic(Bitmap profilepPic) {
+        this.profilepPic = profilepPic;
     }
 
     public void setChatID(BigInteger chatID) {

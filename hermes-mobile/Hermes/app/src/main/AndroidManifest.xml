@@ -17,8 +17,11 @@
         </activity>
         <activity
             android:name=".Chats"
-            android:label="Chats"></activity>
-        <activity android:name=".ChatDetails"
+            android:label="Chats" />
+        <activity
+            android:name=".ChatDetails"
+            android:theme="@style/Base.Theme.AppCompat.Light.DarkActionBar" />
+        <activity android:name=".SearchForUser"
             android:theme="@style/Base.Theme.AppCompat.Light.DarkActionBar"></activity>
     </application>
 

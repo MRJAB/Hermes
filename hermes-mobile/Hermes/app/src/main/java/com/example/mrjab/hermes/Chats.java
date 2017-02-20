@@ -167,6 +167,8 @@ public class Chats extends AppCompatActivity{
         if (id == R.id.action_add) {
             // Add a new Chat
             Toast.makeText(getApplicationContext(),"Add new Chat",Toast.LENGTH_LONG).show();
+            Intent i = new Intent(Chats.this, SearchForUser.class);
+            startActivity(i);
             return true;
         }
 
