@@ -11,8 +11,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 
+
 import java.text.DateFormatSymbols;
 import java.util.Date;
+
 import java.util.List;
 
 public class ChatDetails extends AppCompatActivity {
@@ -20,18 +22,21 @@ public class ChatDetails extends AppCompatActivity {
     Button buttonSend;
     EditText chatText;
     ChatArrayAdapter chatArrayAdapter;
+
     String sentMessages[];
     String receivedMessages[];
     int sentTimes[];
     int receivedTimes[];
     Date[] sentDates;
     Date[] receivedDates;
+
     private boolean side = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat_details);
+
 
         Intent i = getIntent();
         String uname = i.getStringExtra("uname");
@@ -42,6 +47,7 @@ public class ChatDetails extends AppCompatActivity {
 
         sentDates = new Date[]{new Date(2017, 2, 14, 14, 32, 0), new Date(2017, 2, 14, 14, 33, 10), new Date(2017, 2, 14, 14, 35, 0)};
         receivedDates = new Date[]{new Date(2017, 2, 14, 14, 32, 10), new Date(2017, 2, 14, 14, 34, 0), new Date(2017, 2, 14, 14, 34, 30), new Date(2017, 2, 14, 14, 36, 0)};
+
 
 
         this.setTitle(uname);
@@ -81,6 +87,7 @@ public class ChatDetails extends AppCompatActivity {
             }
         });
 
+
         int k = 1;
         int m = 0;
         int n = 0;
@@ -99,10 +106,12 @@ public class ChatDetails extends AppCompatActivity {
 
     private boolean sendChatMessage() {
         chatArrayAdapter.add(new ChatMessage(0, chatText.getText().toString(),new Date()));
+
         chatText.setText("");
         side = !side;
         return true;
     }
+
 
     String getMonthForInt(int num) {
         String month = "wrong";
@@ -114,3 +123,4 @@ public class ChatDetails extends AppCompatActivity {
         return month;
     }
 }
+

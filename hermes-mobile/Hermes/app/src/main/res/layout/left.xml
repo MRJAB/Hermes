@@ -26,12 +26,14 @@
         android:text="Sampleleft"
         android:minWidth="100dp"
         android:maxWidth="300dp"
+
         android:textColor="#000" />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="HH:MM"
         android:id="@+id/date"
+
         android:textColor="#4d4d4d"
         android:layout_gravity="right"
         android:textSize="10sp"/>
