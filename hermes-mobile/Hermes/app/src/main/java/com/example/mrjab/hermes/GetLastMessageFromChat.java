@@ -1,11 +1,8 @@
 package com.example.mrjab.hermes;
 
 import android.os.AsyncTask;
-import android.os.Debug;
-import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
-import android.widget.Toast;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
@@ -22,36 +19,32 @@ import org.json.JSONObject;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
- * Created by ARSALAN on 20-Feb-17.
+ * Created by yatharth on 24/02/17.
  */
 
-public class ChatList {
+public class GetLastMessageFromChat {
 
+    int userID;
+    int chatID;
 
-    ArrayList<ChatInfo> chats= new ArrayList<>();
-    public GetChats asyncChats = new GetChats();
+    ArrayList<MessageInfo> messages = new ArrayList<>();
+    public GetMessage asyncMessages = new GetMessage();
 
-
-    public ArrayList<ChatInfo> getChats() {
-        return this.chats;
+    public GetLastMessageFromChat(int uid,int chatid) {
+        this.userID=uid;
+        this.chatID=chatid;
     }
 
-    public void setChats(ArrayList<ChatInfo> chats) {
-        this.chats = chats;
-    }
 
-    public void getJsonChat(final int userID){
+    public class GetMessage extends AsyncTask<String, Void, String> {
 
-
-
-    }
-
-    class GetChats extends AsyncTask<String, Void, String> {
-
-        public AsyncResponse delegate = null;
+        public AsyncResponseMessages delegate = null;
         @Override
         protected String doInBackground( String[] userID) {
             // TODO Auto-generated method stub
@@ -62,7 +55,7 @@ public class ChatList {
             final HttpClient httpclient = new DefaultHttpClient();
             final HttpPost httppost = new HttpPost("http://hermes.webutu.com/ChatSelect.php");
 
-            final HttpGet httpget = new HttpGet("http://hermes.webutu.com/ChatSelect.php?userID="+String.valueOf(userID[0]));
+            final HttpGet httpget = new HttpGet("http://hermes.webutu.com/ChatMessageSelect.php?userID="+String.valueOf(userID[0]));
             String result;
 
 
@@ -128,17 +121,30 @@ public class ChatList {
                     try {
                         JSONObject oneObject = jArray.getJSONObject(i);
                         // Pulling items from the array
-                        chats.add(new ChatInfo(oneObject.getInt("fk_InitUserID_by"), oneObject.getInt("fk_InitUserID_with"), oneObject.getInt("ChatID")));
-                    } catch (JSONException e) {
+                        if (!oneObject.getString("RecieveDateTime").equals("null")) {
+                            if (oneObject.getInt("ChatID") == chatID) {
+                                Date date = new Date();
+                                SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd' 'HH:mm:ss");
+                                try {
+
+                                    date = format.parse(oneObject.getString("RecieveDateTime"));
+                                } catch (ParseException e) {
+                                    e.printStackTrace();
+                                }
+                                messages.add(new MessageInfo(oneObject.getInt("MessageID"), oneObject.getInt("ChatID"), oneObject.getInt("fk_SenderUserID"), oneObject.getString("Content"), date));
+                            }
+                        }
+                    }catch (JSONException e) {
                         // Oops
                         e.printStackTrace();
                     }
+
                 }
             }catch (JSONException e) {
                 e.printStackTrace();
             }
 
-            delegate.processfinish(chats);
+            delegate.processfinishMessages(messages);
             //this method will be running on UI thread
 
 
@@ -148,3 +154,5 @@ public class ChatList {
 
 
 }
+
+

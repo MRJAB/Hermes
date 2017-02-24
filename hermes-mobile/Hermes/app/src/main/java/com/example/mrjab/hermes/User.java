@@ -9,7 +9,7 @@ import java.util.Date;
 
 public class User {
     private String userName;
-    private BigInteger userID;
+    private int userID;
     private String email;
     private String password;
     private String name;
@@ -17,7 +17,7 @@ public class User {
     private Date created;
     private Date modified;
 
-    public User(BigInteger userID){
+    public User(int userID){
         // Establish connection with the database
         // if user exists
         // update the variables
@@ -39,7 +39,7 @@ public class User {
 
     }
 
-    public User searchUser(){
+    public User searchUser(int userID){
         // search the database and if exists, return user object
         return null;
     }
@@ -53,11 +53,11 @@ public class User {
         this.userName = userName;
     }
 
-    public BigInteger getUserID() {
+    public int getUserID() {
         return userID;
     }
 
-    public void setUserID(BigInteger userID) {
+    public void setUserID(int userID) {
         this.userID = userID;
     }
 

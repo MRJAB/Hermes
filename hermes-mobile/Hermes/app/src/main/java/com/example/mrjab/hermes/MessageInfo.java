@@ -8,37 +8,42 @@ import java.util.Date;
  */
 
 public class MessageInfo {
-    BigInteger messageID;
-    BigInteger userIDSender;
-    BigInteger chatID;
+    int messageID;
+    int userIDSender;
+    int chatID;
     String content;
-    Date received;
+    Date receivedDate;
 
-    public MessageInfo(){
+    public MessageInfo(int messageID, int chatID, int userIDSender, String content, Date receivedDate){
         // Initialize variables on creation of a new message
+        this.userIDSender=userIDSender;
+        this.messageID = messageID;
+        this.chatID=chatID;
+        this.content = content;
+        this.receivedDate = receivedDate;
     }
 
-    public BigInteger getMessageID() {
+    public int getMessageID() {
         return messageID;
     }
 
-    public void setMessageID(BigInteger messageID) {
+    public void setMessageID(int messageID) {
         this.messageID = messageID;
     }
 
-    public BigInteger getUserIDSender() {
+    public int getUserIDSender() {
         return userIDSender;
     }
 
-    public void setUserIDSender(BigInteger userIDSender) {
+    public void setUserIDSender(int userIDSender) {
         this.userIDSender = userIDSender;
     }
 
-    public BigInteger getChatID() {
+    public int getChatID() {
         return chatID;
     }
 
-    public void setChatID(BigInteger chatID) {
+    public void setChatID(int chatID) {
         this.chatID = chatID;
     }
 
@@ -51,10 +56,10 @@ public class MessageInfo {
     }
 
     public Date getReceived() {
-        return received;
+        return receivedDate;
     }
 
     public void setReceived(Date received) {
-        this.received = received;
+        this.receivedDate = received;
     }
 }

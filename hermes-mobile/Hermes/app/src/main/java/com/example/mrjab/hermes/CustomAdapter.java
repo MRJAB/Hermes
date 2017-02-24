@@ -13,14 +13,17 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.ArrayList;
+
 public class CustomAdapter extends BaseAdapter {
-    String [] usrnames;
+    ArrayList<String> usrnames;
     Context context;
     int [] imageId;
-    String [] messages;
-    String [] times;
+    ArrayList<String> messages;
+    ArrayList<String> times;
     private static LayoutInflater inflater=null;
-    public CustomAdapter(Chats chats, String[] username, int[] profImages, String[] message, String[] time) {
+    public CustomAdapter(Chats chats, ArrayList<String> username, int[] profImages, ArrayList<String> message, ArrayList<String> time) {
         // TODO Auto-generated constructor stub
         usrnames=username;
         context=chats;
@@ -33,7 +36,7 @@ public class CustomAdapter extends BaseAdapter {
     @Override
     public int getCount() {
         // TODO Auto-generated method stub
-        return usrnames.length;
+        return usrnames.size();
     }
 
     @Override
@@ -68,7 +71,9 @@ public class CustomAdapter extends BaseAdapter {
         holder.img=(ImageView) rowView.findViewById(R.id.imageView1);
 
 
-        holder.tv1.setText(usrnames[position]);
+        holder.tv1.setText(usrnames.get(position));
+        holder.tv2.setText(times.get(position));
+        holder.tv3.setText(messages.get(position));
         //holder.tv2.setText(times[position]);
         //holder.tv3.setText(messages[position]);
         //holder.img.setImageResource(imageId[position]);

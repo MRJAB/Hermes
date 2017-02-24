@@ -12,6 +12,8 @@ import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.text.format.DateFormat;
+import android.text.format.DateUtils;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.view.Menu;
@@ -19,6 +21,7 @@ import android.view.MenuItem;
 
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -28,14 +31,24 @@ import com.baoyz.swipemenulistview.SwipeMenuItem;
 import com.baoyz.swipemenulistview.SwipeMenuListView;
 
 import java.math.BigInteger;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
 
 
-public class Chats extends AppCompatActivity{
+public class Chats extends AppCompatActivity implements AsyncResponse,AsyncResponseMessages{
 
     private Toolbar toolbar;
-    ChatList chatList;
+    ChatList chatList = new ChatList();
     ArrayList<ChatInfo> allChats= new ArrayList<>();
+
+    int [] profileImages={};
+    ArrayList<String> times=new ArrayList<>();
+    ArrayList<String> messages = new ArrayList<>();
+    ArrayList<String> username = new ArrayList<>();
+    String currentMessage = "Message";
+    Date currentDate = new Date();
 
 
     @Override
@@ -54,13 +67,14 @@ public class Chats extends AppCompatActivity{
 
 
         // Get these details from the database
-        int [] profileImages={};
-        final String [] userNames={"Arsalan","Vashu","Khalil","Yatharth","User 5"};
+        /*int [] profileImages={};
+        String [] users = {"Arsalan","Vashu","Khalil","Yatharth","User 5"};
+        final ArrayList<String> userNames=new ArrayList<>(Arrays.asList(users));
         String [] times={};
-        String [] messages={};
+        ArrayList<String> messages=new ArrayList<>();
 
 
-        listView.setAdapter(new CustomAdapter(this, userNames,profileImages,times,messages));
+        listView.setAdapter(new CustomAdapter(this, userNames,profileImages,messages,times));*/
 
         SwipeMenuCreator creator = new SwipeMenuCreator() {
 
@@ -117,9 +131,9 @@ public class Chats extends AppCompatActivity{
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Toast.makeText(getApplicationContext(), userNames[i] + " Clicked", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), username.get(i) + " Clicked", Toast.LENGTH_SHORT).show();
                 Intent in =new Intent(Chats.this,ChatDetails.class);
-                in.putExtra("uname",userNames[i]);
+                in.putExtra("uname",username.get(i));
                 startActivity(in);
             }
         });
@@ -147,7 +161,12 @@ public class Chats extends AppCompatActivity{
 
         //listView.setSwipeDirection(SwipeMenuListView.DIRECTION_LEFT);
 
-       new GetChats().execute();
+        chatList.asyncChats.delegate = this;
+
+        String [] userid = {"1"};
+
+        chatList.asyncChats.execute(userid);
+
     }
 
     public static float dipToPixels(Context context, float dipValue) {
@@ -191,28 +210,54 @@ public class Chats extends AppCompatActivity{
         return super.onOptionsItemSelected(item);
     }
 
-    class GetChats extends AsyncTask<Void, Void, Void> {
+
+    @Override
+    public void processfinish(ArrayList<ChatInfo> output) {
 
 
-        @Override
-        protected Void doInBackground(Void... params) {
-            // TODO Auto-generated method stub
-            chatList = new ChatList(1);
-            allChats = chatList.getChats();
-            int size = allChats.size();
-            //Do Your stuff here..
-            return null;
+        int i =0;
+        EditText search = (EditText) findViewById(R.id.search_chat);
+        for (ChatInfo ch  : output
+             ) {
+            search.setText(search.getText()+"\n"+ch.getChatID()+" "+ch.getUserIDSender()+" "+ch.getUserIDReceiver());
+            username.add("User ID : " + ch.getUserIDReceiver());
+            GetLastMessageFromChat getMessages = new GetLastMessageFromChat(1,ch.getChatID());
+            GetLastMessageFromChat newmess = new GetLastMessageFromChat(1,1);
+            String [] userid = {"1"};
+            getMessages.asyncMessages.delegate=this;
+            getMessages.asyncMessages.execute(userid);
         }
-        @Override
-        protected void onPostExecute(Void result) {
-            super.onPostExecute(result);
 
-            //this method will be running on UI thread
-
-            Toast.makeText(getApplicationContext(),""+allChats.size(),Toast.LENGTH_LONG).show();
-        }
+        allChats=output;
     }
 
+    @Override
+    public void processfinishMessages(ArrayList<MessageInfo> allmessages) {
 
+        if(allmessages.size() > 0) {
+            currentMessage = allmessages.get(allmessages.size() - 1).getContent();
+            currentDate = allmessages.get(allmessages.size() - 1).getReceived();
+        }
+        else {
+            currentMessage = "No Messages yet";
+        }
+
+        messages.add(currentMessage);
+
+
+        if( DateUtils.isToday(currentDate.getDate()))
+        times.add(currentDate.getHours()+":"+currentDate.getMinutes());
+        else{
+            SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+            String newDate = df.format(currentDate);
+            times.add(newDate);
+        }
+        SwipeMenuListView listView= (SwipeMenuListView) findViewById(R.id.listView);
+
+        if(username.size()==messages.size()) {
+            listView.setAdapter(new CustomAdapter(this, username, profileImages, messages, times));
+        }
+
+    }
 }
 
