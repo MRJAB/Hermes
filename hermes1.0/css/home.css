@@ -1,0 +1,346 @@
+#subheader_div
+{
+	background-color:whitesmoke;
+	width:100%;
+	position:absolute;
+	padding: 5px;
+	
+		border: 1px solid lightgrey;
+
+}
+#profile_picture,#friend_profile_picture
+{
+	width:60px;
+	height:50px;
+	border-radius:30px;
+	background-color:#FFFFFF;
+	margin-left:30px;
+	background-image:url(../images/default.png);
+	background-size:100% 100%;
+	
+	
+}
+#friend_profile_picture
+{
+	background-image:url(../images/15241775_1138296379617132_1793783046835652863_n.jpg);
+}
+
+div#search_div
+{
+
+	position: absolute;
+	z-index: 99;
+	top: 0px;
+	width: 70%;
+		margin:10px auto auto 10%;
+
+}
+div#search_div #search_box
+{
+	width:70%;
+	font-size: 18px;
+	
+	
+	padding: 10px;
+	height: 40px;
+	border-radius: 20px;
+	border:0;
+	
+	box-sizing: border-box;
+
+	background-image:url(../images/1486198611_icon-111-search.png);
+	background-repeat: no-repeat;
+	background-position: right;
+	background-size: auto 100%;
+
+}
+#search_box
+{
+	border: 1px solid lightgrey;
+}
+ul#submenu
+{
+	padding: 10px;
+	position: absolute;
+	top:30px;
+	display: none;
+	color:#F4F7FA; 
+	
+}
+#submenu_li
+{
+	background-image:url(../images/1486181656_menu.png);
+	background-size:100% 100%;
+	background-repeat:no-repeat;
+	width:40px;
+	height:40px;
+	
+
+}
+#menu
+{position: absolute;
+	margin: 0;
+	
+	
+}
+
+ul#submenu li
+{
+	padding: 10px;
+	border-bottom: 1px solid #2C3E50;
+	text-align: center;
+	margin: 0;
+	border-radius: 10px;
+	width: 150px;
+		background-color: #28B463;
+
+	
+	
+}
+ul#menu >li:hover >ul#submenu
+{
+	display: block;
+	
+	
+}
+
+#menu_div
+{
+	position: absolute;
+	top:5px;
+	right:20%;
+
+	z-index: 199;
+	
+	
+}
+#friend_name
+{
+	position: absolute;
+	top:20px;
+	left:150px;
+}
+#chat_div
+{
+
+	position:relative;
+	top:70px;
+	height: 600px;
+	
+	width: 95%;
+	padding: 20px;
+	margin: auto;
+	font-size: 14px;
+
+	
+}
+h2
+{
+	color:white;
+	font-family: Gill Sans, Gill Sans MT, Myriad Pro, DejaVu Sans Condensed, Helvetica, Arial," sans-serif";
+	margin: 0 0 0 10%;
+	
+	
+	
+}
+#contacts
+{
+
+	position: absolute;
+	padding: 0px;
+	left:0px;
+	margin: 0;
+	top:15%;
+	overflow-y: scroll;
+	
+	
+
+}
+#contacts span,#friend_name span
+{
+	margin-left: 25px;
+	width: 30px;
+	text-align: right;
+}
+#contacts li
+{
+	color: #F4F7FA;
+	padding: 15px;
+	width: 200px;
+	margin: 5px;
+	border-bottom: 1px solid black;
+	
+}
+
+#contacts li:nth-child(2n)
+{
+	background-color: #28B463;
+}
+#contacts li:nth-child(2n+1)
+{
+	background-color:#2C3E50;
+}
+#contacts li:hover{
+	background-color: #DDDFE2;
+	color:#2C3E50;
+	cursor: pointer;
+}
+
+#chat
+{
+	position: absolute;
+	right:20px;
+	background-color: white;
+	width: 75%;
+	top:60px;
+	padding: 0;
+	overflow-y: scroll;
+	overflow-x: hidden;
+	height: 70%;
+	resize: none;
+	bottom: 20px;
+	margin-bottom: 20px;
+	box-shadow: 1px 1px 1px #ccc;
+	border: 1px solid lightgrey;
+		border-radius: 5px;
+
+}
+#chat img
+{
+	margin-left:20%;
+}
+
+#
+#chat li
+{
+	position:relative;
+	margin:10px;
+
+}
+#chat li p
+{
+	padding: 15px;
+	max-width: 40%;
+	width: auto;
+	margin:5px;
+	color:white;
+	border-radius: 40px;
+	position: relative;
+	display: flex;
+	flex-flow: nowrap;
+	align-items: flex-start;
+	font-family: tahoma," sans-serif";
+	
+}
+.user
+{
+	
+	background-color: #EE4F4F;
+	left: 50%;
+	
+	
+	
+}
+.friend
+{
+	background-color: #0AB9A7;
+	
+	position: relative;
+	left: 5%;
+
+}
+
+#friend_info
+{
+	position: absolute;
+	width:75%;
+	right:20px;
+	color:white;
+	background-color: #2C3E50;
+	border: 1px solid #2C3E50;
+	
+	
+}
+#message_div
+{
+	position: absolute;
+	bottom:60px;
+	right:30px;
+	width: 75%;
+}
+#message_div #message_box
+{
+	font-size: 18px;
+	
+	height: 40px;
+	border:0;
+	width: 100%;
+	resize: none;
+	padding: 5px;
+	background-color:#F4F7FA;
+	border-radius: 3px;
+	
+}
+#message_div #message_box:focus
+{
+	background-color:white;
+	
+}
+
+h1 span#userName
+{
+	font-size: 24px;
+	color: #EE4F4F;
+}
+span.activity
+{
+background-repeat: no-repeat;
+	display: inline-block;
+	width: 15px;
+	height: 15px;
+}
+.online
+{
+	background:url(../images/online.png);
+	
+
+}
+.lastseen
+{
+	
+background:url(../images/lastseen.png);
+		
+}
+
+#search_result
+{
+	position: absolute;
+
+	list-style-type: none;
+	margin: 0;
+	padding: 10px;
+	width: 60%;
+	display:none;
+	background-color:whitesmoke;
+
+}
+
+#search_result li
+{
+	text-decoration:none;
+	padding: 10px;
+	border-bottom: 1px solid whitesmoke ;
+	background-color:white;
+	color:#2C3E50;
+	
+	
+	
+}
+#search_result li:hover
+{
+		background-color:#ECF0F7;
+	color:#2C3E50;
+	font-weight: bold;
+
+}
+
