@@ -36,11 +36,11 @@ chats? etc.
 
 
 
-Hermes Web Project
+#Hermes Web Project
 
 This project is web application version of hermes project.
 This project uses the technologies javascript,php mysql html5 and css3.
 Ajax technology is used to make asynchronous requests.
 PHP is only used to push and pull data from the data base.
-All the website's dynami cnature is handled by javascript.
+All the website's dynamic nature is handled by javascript.
 Latest version of css is used for styling
