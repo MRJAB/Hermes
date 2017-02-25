@@ -1,4 +1,4 @@
-# Hermes Team Project
+# Hermes Project
 
 #Develop a distributed chat system, with two separate clients
 Users can search for other people on a server, and initiate a chat
@@ -32,3 +32,15 @@ Need to speak a network protocol to users.
 Some choices: store history locally? and/or remotely (allows
 users to move clients)? edit / delete previous messages? group
 chats? etc.
+
+
+
+
+Hermes Web Project
+
+This project is web application version of hermes project.
+This project uses the technologies javascript,php mysql html5 and css3.
+Ajax technology is used to make asynchronous requests.
+PHP is only used to push and pull data from the data base.
+All the website's dynami cnature is handled by javascript.
+Latest version of css is used for styling
