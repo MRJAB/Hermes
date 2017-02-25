@@ -1,5 +1,6 @@
 package com.example.mrjab.hermes;
 
+import java.io.Serializable;
 import java.math.BigInteger;
 import java.util.Date;
 
@@ -7,7 +8,7 @@ import java.util.Date;
  * Created by yatharth on 15/02/17.
  */
 
-public class MessageInfo {
+public class MessageInfo implements Serializable {
     int messageID;
     int userIDSender;
     int chatID;

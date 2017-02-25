@@ -9,10 +9,10 @@
     <ImageView
         android:id="@+id/imageView1"
         android:layout_gravity="center"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:src="@android:drawable/sym_action_chat"
-        android:background="@color/colorPrimaryDark"/>
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@drawable/ic_action_profile_pic"
+        android:background="@android:color/darker_gray"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

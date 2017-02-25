@@ -1,7 +1,9 @@
 package com.example.mrjab.hermes;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 
@@ -49,6 +51,9 @@ public class Chats extends AppCompatActivity implements AsyncResponse,AsyncRespo
     ArrayList<String> username = new ArrayList<>();
     String currentMessage = "Message";
     Date currentDate = new Date();
+    static int i=0;
+
+    HermesDbHelper dbHelper;
 
 
     @Override
@@ -65,16 +70,24 @@ public class Chats extends AppCompatActivity implements AsyncResponse,AsyncRespo
         toolbar.setTitleTextColor(Color.WHITE);
         setSupportActionBar(toolbar);
 
+        dbHelper = new HermesDbHelper(getApplicationContext());
 
-        // Get these details from the database
-        /*int [] profileImages={};
-        String [] users = {"Arsalan","Vashu","Khalil","Yatharth","User 5"};
-        final ArrayList<String> userNames=new ArrayList<>(Arrays.asList(users));
-        String [] times={};
-        ArrayList<String> messages=new ArrayList<>();
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
 
+        if(dbHelper.f==0)
+        {
+            Toast.makeText(getApplicationContext(),"On Create working",Toast.LENGTH_LONG).show();
+        }
 
-        listView.setAdapter(new CustomAdapter(this, userNames,profileImages,messages,times));*/
+        ContentValues values = new ContentValues();
+        values.put("UserID",1);
+        values.put("Username", "Yatharth");
+        values.put("Email","blah@shit.com");
+        values.put("Password","Yath");
+        values.put("CreateDate",new Date().toString());
+
+        long newRowId = db.insert("tbl_user", null, values);
+
 
         SwipeMenuCreator creator = new SwipeMenuCreator() {
 
@@ -133,6 +146,7 @@ public class Chats extends AppCompatActivity implements AsyncResponse,AsyncRespo
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Toast.makeText(getApplicationContext(), username.get(i) + " Clicked", Toast.LENGTH_SHORT).show();
                 Intent in =new Intent(Chats.this,ChatDetails.class);
+                in.putExtra("Messages", allChats.get(i).messages);
                 in.putExtra("uname",username.get(i));
                 startActivity(in);
             }
@@ -167,6 +181,14 @@ public class Chats extends AppCompatActivity implements AsyncResponse,AsyncRespo
 
         chatList.asyncChats.execute(userid);
 
+        EditText search = (EditText) findViewById(R.id.search_chat);
+        search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
     }
 
     public static float dipToPixels(Context context, float dipValue) {
@@ -191,7 +213,8 @@ public class Chats extends AppCompatActivity implements AsyncResponse,AsyncRespo
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            Toast.makeText(getApplicationContext(),"Add new Chat",Toast.LENGTH_LONG).show();
+            Intent dbmanager = new Intent(Chats.this,AndroidDatabaseManager.class);
+            startActivity(dbmanager);
             return true;
         }
         if (id == R.id.action_exit) {
@@ -216,10 +239,9 @@ public class Chats extends AppCompatActivity implements AsyncResponse,AsyncRespo
 
 
         int i =0;
-        EditText search = (EditText) findViewById(R.id.search_chat);
         for (ChatInfo ch  : output
              ) {
-            search.setText(search.getText()+"\n"+ch.getChatID()+" "+ch.getUserIDSender()+" "+ch.getUserIDReceiver());
+            //search.setText(search.getText()+"\n"+ch.getChatID()+" "+ch.getUserIDSender()+" "+ch.getUserIDReceiver());
             username.add("User ID : " + ch.getUserIDReceiver());
             GetLastMessageFromChat getMessages = new GetLastMessageFromChat(1,ch.getChatID());
             GetLastMessageFromChat newmess = new GetLastMessageFromChat(1,1);
@@ -233,7 +255,8 @@ public class Chats extends AppCompatActivity implements AsyncResponse,AsyncRespo
 
     @Override
     public void processfinishMessages(ArrayList<MessageInfo> allmessages) {
-
+        allChats.get(i).setMessages(allmessages);
+        i++;
         if(allmessages.size() > 0) {
             currentMessage = allmessages.get(allmessages.size() - 1).getContent();
             currentDate = allmessages.get(allmessages.size() - 1).getReceived();

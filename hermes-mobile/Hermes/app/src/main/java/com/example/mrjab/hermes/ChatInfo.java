@@ -43,8 +43,8 @@ public class ChatInfo {
     String keyValue;
     Date createDate;
     Context context;
-
     Bitmap profilepPic;
+    ArrayList<MessageInfo> messages = new ArrayList<>();
 
     public ChatInfo()
     {
@@ -57,7 +57,15 @@ public class ChatInfo {
 
     }
 
-    public ChatInfo(int sender,int receiver, int chatID){
+    public ArrayList<MessageInfo> getMessages() {
+        return messages;
+    }
+
+    public void setMessages(ArrayList<MessageInfo> messages) {
+        this.messages = messages;
+    }
+
+    public ChatInfo(int sender, int receiver, int chatID){
         this.userIDSender = sender;
         this.userIDReceiver = receiver;
         this.chatID = chatID;

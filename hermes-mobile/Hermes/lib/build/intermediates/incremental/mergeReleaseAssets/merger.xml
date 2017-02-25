@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merger version="3"><dataSet config="main"><source path="/Users/yatharth/git/Hermes/hermes-mobile/Hermes/lib/src/main/assets"/><source path="/Users/yatharth/git/Hermes/hermes-mobile/Hermes/lib/build/generated/assets/shaders/release"/></dataSet><dataSet config="release"><source path="/Users/yatharth/git/Hermes/hermes-mobile/Hermes/lib/src/release/assets"/></dataSet></merger>

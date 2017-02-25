@@ -16,9 +16,12 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
+import github.ankushsachdeva.emojicon.EmojiconTextView;
+import github.ankushsachdeva.emojicon.emoji.Emojicon;
+
 class ChatArrayAdapter extends ArrayAdapter<ChatMessage> {
 
-    private TextView chatText;
+    private EmojiconTextView chatText;
 
     private  TextView dateText;
 
@@ -58,7 +61,7 @@ class ChatArrayAdapter extends ArrayAdapter<ChatMessage> {
         {
             row = inflater.inflate(R.layout.center,parent,false);
         }
-        chatText = (TextView) row.findViewById(R.id.msgr);
+        chatText = (EmojiconTextView) row.findViewById(R.id.msgr);
         chatText.setText(chatMessageObj.message);
 
         if(chatMessageObj.received !=null) {

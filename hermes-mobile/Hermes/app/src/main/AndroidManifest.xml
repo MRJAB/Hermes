@@ -24,8 +24,10 @@
             android:name=".ChatDetails"
             android:theme="@style/Base.Theme.AppCompat.Light.DarkActionBar" />
         <activity android:name=".SearchForUser"
+            android:label="Search For User"></activity>
 
-            android:theme="@style/Base.Theme.AppCompat.Light.DarkActionBar"></activity>
+        <activity android:name=".AndroidDatabaseManager"
+            android:theme="@style/Theme.AppCompat.Light"/>
     </application>
 
 </manifest>
