@@ -133,7 +133,7 @@ public class ChatList {
                     try {
                         JSONObject oneObject = jArray.getJSONObject(i);
                         // Pulling items from the array
-                        chats.add(new ChatInfo(oneObject.getInt("fk_InitUserID_by"), oneObject.getInt("fk_InitUserID_with"), oneObject.getInt("ChatID")));
+                        chats.add(new ChatInfo(oneObject.getInt("fk_InitUserID_by"), oneObject.getInt("fk_InitUserID_with"), oneObject.getInt("ChatID"), oneObject.getString("Username"), oneObject.getString("Name")));
                     } catch (JSONException e) {
                         // Oops
                         e.printStackTrace();

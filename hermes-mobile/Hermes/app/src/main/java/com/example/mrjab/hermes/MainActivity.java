@@ -2,6 +2,7 @@ package com.example.mrjab.hermes;
 
 import android.app.usage.UsageEvents;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Looper;
 import android.support.v7.app.AppCompatActivity;
@@ -40,6 +41,18 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        SharedPreferences prefs = getSharedPreferences("login", MODE_PRIVATE);
+        int id = prefs.getInt("userID", 0); //0 is the default value.
+
+        if(id > 0)
+        {
+            Intent intent =new Intent(this,Chats.class);
+            intent.putExtra("userID", id);
+            startActivity(intent);
+            finish();
+        }
+
         setContentView(R.layout.sign_in);
 
         username = (EditText) findViewById(R.id.username_textField);
@@ -68,6 +81,7 @@ public class MainActivity extends AppCompatActivity {
         digest.reset();
         return digest.digest(password.getBytes());
     }
+
     static String bin2hex(byte[] data) {
         return String.format("%0" + (data.length*2) + "X", new BigInteger(1, data));
     }
@@ -174,6 +188,10 @@ public class MainActivity extends AppCompatActivity {
                 }
                 else
                 {
+
+                    SharedPreferences.Editor editor = getSharedPreferences("login", MODE_PRIVATE).edit();
+                    editor.putInt("userID", userID);
+                    editor.commit();
 
                     Intent i = new Intent(MainActivity.this, Chats.class);
                     i.putExtra("userID", userID);

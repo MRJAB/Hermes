@@ -1,6 +1,7 @@
 package com.example.mrjab.hermes;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Looper;
 import android.support.v7.app.AppCompatActivity;
@@ -57,16 +58,23 @@ public class SignUp extends AppCompatActivity {
 
 
 
-
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if(confirmPassword.getText().toString().equals(password.getText().toString()) && confirm_email.getText().toString().equals(email.getText().toString())) {
-                    parameters[0] = (fullName.getText().toString());
-                    parameters[1] = (userName.getText().toString());
-                    parameters[2] = (email.getText().toString());
-                    parameters[3] = (password.getText().toString());
-                    new createNewUser().execute(parameters);
+
+                    if(password.getText().toString().length()>=8 && password.getText().toString().length() <=20 && userName.getText().toString().length() >= 8 && userName.getText().toString().length() <= 20) {
+                        parameters[0] = (fullName.getText().toString());
+                        parameters[1] = (userName.getText().toString());
+                        parameters[2] = (email.getText().toString());
+                        parameters[3] = (password.getText().toString());
+                        new createNewUser().execute(parameters);
+                    }
+                    else
+                    {
+                        Toast.makeText(getApplicationContext(),"Password and Username should be between 8 to 20 characters.",Toast.LENGTH_LONG).show();
+
+                    }
                 }
                 else
                 {
@@ -76,6 +84,14 @@ public class SignUp extends AppCompatActivity {
         });
 
     }
+
+    @Override
+    public void onBackPressed() {
+        Intent i=new Intent(this,MainActivity.class);
+        startActivity(i);
+        finish();
+    }
+
 
     class createNewUser extends AsyncTask<String, Void, String> {
 

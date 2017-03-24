@@ -39,7 +39,8 @@
             android:name=".AndroidDatabaseManager"
             android:theme="@style/Theme.AppCompat.Light" />
         <activity android:name=".SignUp" />
-        <activity android:name=".NewChat"></activity>
+        <activity android:name=".NewChat" />
+        <activity android:name=".SearchResults"></activity>
     </application>
 
 </manifest>

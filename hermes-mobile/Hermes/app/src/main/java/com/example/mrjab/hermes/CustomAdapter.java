@@ -23,10 +23,10 @@ public class CustomAdapter extends BaseAdapter {
     ArrayList<String> messages;
     ArrayList<String> times;
     private static LayoutInflater inflater=null;
-    public CustomAdapter(Chats chats, ArrayList<String> username, int[] profImages, ArrayList<String> message, ArrayList<String> time) {
+    public CustomAdapter(Context context, ArrayList<String> username, int[] profImages, ArrayList<String> message, ArrayList<String> time) {
         // TODO Auto-generated constructor stub
         usrnames=username;
-        context=chats;
+        this.context=context;
         imageId=profImages;
         messages=message;
         times=time;

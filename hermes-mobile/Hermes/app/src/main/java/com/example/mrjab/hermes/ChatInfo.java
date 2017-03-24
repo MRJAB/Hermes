@@ -27,6 +27,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.Serializable;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Date;
@@ -36,13 +37,15 @@ import java.util.Date;
  * Created by yatharth on 15/02/17.
  */
 
-public class ChatInfo {
+public class ChatInfo implements Serializable{
     int chatID;
     int userIDSender;
     int userIDReceiver;
     String keyValue;
     Date createDate;
     Context context;
+    String username;
+    String name;
     Bitmap profilepPic;
     ArrayList<MessageInfo> messages = new ArrayList<>();
 
@@ -65,10 +68,36 @@ public class ChatInfo {
         this.messages = messages;
     }
 
-    public ChatInfo(int sender, int receiver, int chatID){
+    public ChatInfo(int sender, int receiver, int chatID, String username, String name){
         this.userIDSender = sender;
         this.userIDReceiver = receiver;
         this.chatID = chatID;
+        this.username = username;
+        this.name = name;
+    }
+
+    public Context getContext() {
+        return context;
+    }
+
+    public void setContext(Context context) {
+        this.context = context;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public int getChatID() {

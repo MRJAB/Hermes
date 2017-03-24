@@ -3,6 +3,7 @@ package com.example.mrjab.hermes;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -37,6 +38,21 @@ import com.baoyz.swipemenulistview.SwipeMenuCreator;
 import com.baoyz.swipemenulistview.SwipeMenuItem;
 import com.baoyz.swipemenulistview.SwipeMenuListView;
 
+import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.math.BigInteger;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -61,6 +77,7 @@ public class Chats extends AppCompatActivity implements AsyncResponse,AsyncRespo
     ArrayList<String> messa;
     ArrayList<String> ti;
     ArrayList<ChatInfo> allChats2;
+    int delIndex =0;
     int i=0;
     SwipeMenuListView listView;
     int userID;
@@ -95,19 +112,8 @@ public class Chats extends AppCompatActivity implements AsyncResponse,AsyncRespo
         values.put("fk_InitUserID_by", 1);
         values.put("fk_InitUserID_with",2);
         values.put("KeyValue",5);
-        values.put("CreateDate",new Date().toString());
+        values.put("CreateDate",new Date().toString());*/
 
-
-        Uri CONTENT_URI =
-                Uri.withAppendedPath(
-                        ChatItemsContract.CONTENT_URI,
-                        "chats");
-
-        ChatContentProvider ccp =new ChatContentProvider();
-        if(ccp.initialize(getApplicationContext()) == true) {
-            Toast.makeText(getApplicationContext(),"Init working",Toast.LENGTH_LONG).show();
-            ccp.insert(CONTENT_URI, values);
-        }//long newRowId = db.insert("tbl_user", null, values);*/
 
         SwipeMenuCreator creator = new SwipeMenuCreator() {
 
@@ -158,7 +164,7 @@ public class Chats extends AppCompatActivity implements AsyncResponse,AsyncRespo
             @Override
             public void onSwipeEnd(int position) {
                 // swipe end
-                //handler.post(runnableCode);
+                handler.post(runnableCode);
 
             }
         });
@@ -167,13 +173,15 @@ public class Chats extends AppCompatActivity implements AsyncResponse,AsyncRespo
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                // adapter.notifyDataSetChanged();
-                Toast.makeText(getApplicationContext(), unames.get(i) + " Clicked", Toast.LENGTH_SHORT).show();
-                Intent in =new Intent(Chats.this,ChatDetails.class);
-                in.putExtra("Messages", allChats2.get(i).messages);
-                in.putExtra("uname",unames.get(i));
-                in.putExtra("userID",userID);
-                in.putExtra("chatID",allChats2.get(i).chatID);
-                startActivity(in);
+                if(unames.size() > 0) {
+                    Toast.makeText(getApplicationContext(), unames.get(i) + " Clicked", Toast.LENGTH_SHORT).show();
+                    Intent in = new Intent(Chats.this, ChatDetails.class);
+                    in.putExtra("Messages", allChats2.get(i).messages);
+                    in.putExtra("uname", unames.get(i));
+                    in.putExtra("userID", userID);
+                    in.putExtra("chatID", allChats2.get(i).chatID);
+                    startActivity(in);
+                }
             }
         });
 
@@ -189,8 +197,12 @@ public class Chats extends AppCompatActivity implements AsyncResponse,AsyncRespo
                         break;
                     case 1:
                         // delete
-                        Toast.makeText(getApplicationContext(), "Delete chat", Toast.LENGTH_SHORT).show();
 
+                        Toast.makeText(getApplicationContext(), "Delete chat", Toast.LENGTH_SHORT).show();
+                        String params [] ={String.valueOf(allChats2.get(position).chatID), String.valueOf(userID)};
+                        Log.v("Parameters : ",params[0] + ", " + params[1]);
+                        delIndex=position;
+                        new DeleteChat().execute(params);
                         break;
                 }
                 // false : close the menu; true : not close the menu
@@ -231,38 +243,128 @@ public class Chats extends AppCompatActivity implements AsyncResponse,AsyncRespo
             }
         });
 
-        ImageButton startSearch = (ImageButton) findViewById(R.id.start_search);
-       /*startSearch.setOnClickListener(new View.OnClickListener() {
+        final ImageButton startSearch = (ImageButton) findViewById(R.id.start_search);
+       startSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ArrayList<String> unames = new ArrayList<>();
-                ArrayList<String> mess = new ArrayList<>();
+                ArrayList<String> unames1 = new ArrayList<>();
+                ArrayList<String> mess1 = new ArrayList<>();
                 ArrayList<String> times1 = new ArrayList<>();
-                for (String uname: username
+                ArrayList<ChatInfo> allcha = new ArrayList<ChatInfo>();
+                for (String uname: unames
                      ) {
-                    if(uname.contains(search.getText().toString()))
+                    if(uname.contains(search.getText().toString().trim()) && messa.size() == unames.size())
                     {
-                        unames.add(uname);
-                        mess.add(messages.get(username.indexOf(uname)));
-                        times1.add(times.get(username.indexOf(uname)));
-
+                        unames1.add(uname);
+                        mess1.add(messa.get(unames.indexOf(uname)));
+                        times1.add(ti.get(unames.indexOf(uname)));
+                        allcha.add(allChats2.get(unames.indexOf(uname)));
                     }
                 }
 
-                listView.setAdapter(new CustomAdapter(Chats.this,unames,profileImages,mess,times1));
+                if(unames1.size() >0) {
 
-            }
-        });*/
 
-        search.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View view, boolean b) {
-                if(!b){
-                    handler.post(runnableCode);
+                    Intent in = new Intent(Chats.this, SearchResults.class);
+                    in.putExtra("unames", unames1);
+                    in.putExtra("mess", mess1);
+                    in.putExtra("times1", times1);
+                    in.putExtra("allchats", allcha);
+                    in.putExtra("userID", userID);
+                    startActivity(in);
+
+                    unames1.clear();
+                    mess1.clear();
+                    times1.clear();
+                    allcha.clear();
+                    //listView.setAdapter(new CustomAdapter(Chats.this,unames1,profileImages,mess1,times1));
                 }
             }
         });
 
+    }
+
+
+    class DeleteChat extends AsyncTask<String, Void, String> {
+
+        public AsyncResponse delegate = null;
+        @Override
+        protected String doInBackground( String[] params) {
+            // TODO Auto-generated method stub
+
+            final StringBuilder builder = new StringBuilder();
+            //Do Your stuff here..
+
+            final HttpClient httpclient = new DefaultHttpClient();
+            final HttpPost httppost = new HttpPost("http://hermes.webutu.com/ChatSelect.php");
+
+            final HttpGet httpget = new HttpGet("http://hermes.webutu.com/SP/ChatDelete.php?ChatIDV="+String.valueOf(params[0]) + "&userIDV=" + String.valueOf(params[1]));
+            String result;
+
+
+            HttpResponse httpresponse = null;
+
+            ArrayList<NameValuePair> postParameters;
+
+            postParameters = new ArrayList<NameValuePair>();
+            postParameters.add(
+                    new BasicNameValuePair("userID", String.valueOf(params[0])));
+
+            try {
+                httppost.setEntity(new UrlEncodedFormEntity(postParameters));
+                // reset to null before making a new post if it's being reused
+                httpresponse = null;
+                httpresponse = httpclient.execute(httpget);
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
+
+            if(httpresponse!=null){
+
+                try {
+
+                    // Get the data in the entity
+                    BufferedReader reader = new BufferedReader(
+                            new InputStreamReader(
+                                    httpresponse.getEntity().getContent(), "UTF-8")
+                    );
+
+
+                    for (String line = null; (line = reader.readLine()) != null;) {
+                        builder.append(line).append("\n");
+                    }
+
+
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            return builder.toString();
+        }
+        @Override
+        protected void onPostExecute(String result) {
+            super.onPostExecute(result);
+
+            if(result.contains("True"))
+            {
+                Toast.makeText(getApplicationContext(),"Chat deleted successfully",Toast.LENGTH_LONG).show();
+                Intent in = getIntent();
+                finish();
+                startActivity(in);
+            }
+            else if (result.contains("False"))
+            {
+                Toast.makeText(getApplicationContext(),"Sorry chat could not be deleted. Try again later.",Toast.LENGTH_LONG).show();
+
+            }
+            else
+            {
+                Toast.makeText(getApplicationContext(),"Connection or server error.",Toast.LENGTH_LONG).show();
+            }
+
+        }
     }
 
     public static float dipToPixels(Context context, float dipValue) {
@@ -304,6 +406,16 @@ public class Chats extends AppCompatActivity implements AsyncResponse,AsyncRespo
             startActivity(i);
             return true;
         }
+        if(id == R.id.action_logout){
+            SharedPreferences.Editor editor = getSharedPreferences("login", MODE_PRIVATE).edit();
+            editor.putInt("userID", 0);
+            editor.commit();
+
+            Intent i = new Intent(this, MainActivity.class);
+            startActivity(i);
+            finish();
+            return true;
+        }
 
         return super.onOptionsItemSelected(item);
     }
@@ -338,6 +450,7 @@ public class Chats extends AppCompatActivity implements AsyncResponse,AsyncRespo
         handler.post(runnableCode);
     }
 
+
     @Override
     public void processfinish(ArrayList<ChatInfo> output) {
 
@@ -356,13 +469,14 @@ public class Chats extends AppCompatActivity implements AsyncResponse,AsyncRespo
         for (ChatInfo ch  : output
              ) {
             //search.setText(search.getText()+"\n"+ch.getChatID()+" "+ch.getUserIDSender()+" "+ch.getUserIDReceiver());
-            username.add("User ID : " + ch.getUserIDReceiver());
+            username.add(ch.getName() + " (" + ch.getUsername() + ")");
             Log.v("Latest Chat", String.valueOf(ch.getChatID()));
             GetLastMessageFromChat getMessages = new GetLastMessageFromChat(userID,ch.getChatID());
             String [] userid = {String.valueOf(userID)};
             getMessages.asyncMessages.delegate=this;
             getMessages.asyncMessages.execute(userid);
         }
+
         allChats=new ArrayList<>(output);
     }
 
