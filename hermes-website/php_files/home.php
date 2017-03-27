@@ -27,16 +27,7 @@ if ( empty( $_SESSION[ 'username' ] ) && empty( $_SESSION[ 'name' ] ) ) {
 		<h6 id="subtitle">Your Favourite Chat System</h6>
 		<h2> <span id="userInfo" hidden="<?php echo $_SESSION['user_id']; ?>" title="username">
            			<?php echo $_SESSION['username']?></span>  </h2>
-	
-
-
-
-
-
-
 	</div>
-
-
 	<div id="subheader_div">
 		<div id="profile_picture"></div>
 		<div id="search_div">
@@ -68,22 +59,13 @@ if ( empty( $_SESSION[ 'username' ] ) && empty( $_SESSION[ 'name' ] ) ) {
 
 
 			</ul>
-
-
 		</div>
-		<ul id="showRequestList"></ul>
+
 	</div>
 
 	<div id="chat_div">
-		<ul id="contacts">
-
-			<?php
-
-
-			require( "load_contacts.php" );
-
-			?>
-		</ul>
+				<div id ="contact_tilte">Contact List</div>
+				<ul id="contacts"><?php require("load_contacts.php"); ?></ul>
 		<div id="friend_info">
 			<div id="friend_profile_picture"></div>
 			<div id="friend_name">Start Chat</div>
