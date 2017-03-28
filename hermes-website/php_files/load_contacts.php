@@ -7,31 +7,23 @@ if ( $result = $pdo->query( $query ) ) {
 	$arr = NULL;
 	while ( $row = $result->fetch( PDO::FETCH_ASSOC ) ) {
 		$arr[] = $row;
-
-
 	}
 	if ( count( $arr ) > 0 ) {
-
-
 		for ( $i = 0; $i < count( $arr ); $i++ )
 
 		{
-			echo "<li id='" . $arr[ $i ][ 'ChatID' ] . "' title=''><span>FRENDID:" . $arr[ $i ][ 'Name' ] . " </span></li>";
-
+			if ( empty( $arr[ $i ][ 'Name' ] ) ) {
+				$arr[ $i ][ 'Name' ] = "Unknown";
+			}
+			echo "<li id='" . $arr[ $i ][ 'ChatID' ] . "' title=''><span>" . $arr[ $i ][ 'Name' ] . "</span>
+			<span class='deleteButton'>Delete</span></li>";
 		}
-
-
-	} else {
-
-		echo "<li id='empty_list'><span>No friends To chat</span><span></span></li>";
 	}
-
 
 } else {
 	var_dump( $pdo->errorInfo() );
 
 }
-//echo $p=hash("Sha256","yatharth");	
 unset( $pdo );
 
 

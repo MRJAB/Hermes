@@ -19,7 +19,6 @@ if ( !empty( $_POST[ 'saveChat' ] ) ) {
 		{
 		$query2 = "CALL sp_Chat_Insert($userInfo,$friendInfo)";
 		select_query( $query2 );
-		//$query3 = "select chatID from tbl_chat where fk_InitUserID_by=$userInfo and fk_InitUserID_with=$friendInfo";		
 		$query3 = "CALL sp_Check_Chat($userInfo,$friendInfo)";
 		$data = select_query( $query3 );
 		echo $data;
@@ -52,7 +51,45 @@ elseif ( !empty( $_POST[ 'search_term' ] ) ) {
 	$query = "CALL sp_UserSearch_Select('$search_term')";
 	echo select_query( $query );
 }
+elseif ( isset( $_POST[ 'latestChat' ] ) ) {
 
+	$ids = $_POST[ 'latestChat' ];
+//$query = "CALL sp_ChatAll_select($userInfo)";	
+	
+  $query= "(SELECT
+        tbl_chat.ChatID,
+        tbl_chat.fk_InitUserID_by,
+        tbl_chat.fk_InitUserID_with,
+         tbl_user.Username,
+         tbl_user.Name
+    FROM
+        tbl_chat LEFT Join tbl_user on tbl_chat.fk_InitUserID_with = tbl_user.UserID
+    WHERE
+        tbl_chat.fk_InitUserID_by =$userInfo and tbl_chat.ChatID not IN ($ids)
+        )
+	UNION
+    
+	(SELECT        
+        tbl_chat.ChatID,
+        tbl_chat.fk_InitUserID_by,
+        tbl_chat.fk_InitUserID_with,
+         tbl_user.Username,
+         tbl_user.Name
+    FROM
+        tbl_chat LEFT Join tbl_user on tbl_chat.fk_InitUserID_by = tbl_user.UserID
+    WHERE
+        tbl_chat.fk_InitUserID_with = $userInfo and tbl_chat.ChatID not IN ($ids))";
+	echo select_query( $query );
+}
+elseif ( !empty( $_POST['deletetChat'] ) ) {
+
+			$id = $_POST[ 'deletetChat'];
+			$query = "CALL sp_Chat_Update($id,$userInfo)";
+			select_query( $query );
+			$arr[]=$id;
+			echo json_encode($arr);
+
+}
 else {
 	die( "empty" );
 }

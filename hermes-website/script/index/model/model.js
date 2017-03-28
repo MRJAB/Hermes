@@ -1,12 +1,7 @@
 var model = {
 	pageCall: function (data) {
 		view.loader();
-
-
-
 		var xhr = new XMLHttpRequest();
-		//var loginData="loginData="+data;
-
 		xhr.open("POST", "php_files/" + data + ".php", true);
 		xhr.setRequestHeader("content-type", "application/x-www-form-urlencoded");
 		xhr.send(null);
@@ -14,30 +9,11 @@ var model = {
 			if (xhr.readyState === 4) {
 				if ((xhr.status >= 200 && xhr.status < 300) || xhr.status === 304) {
 					var response = xhr.responseText;
-
-					document.getElementById("main_div").innerHTML = response;
-
-					if (data === "login_page") {
-						document.getElementById("login_submit").onclick = controller.login;
-
-					} else if (data === "signup_page") {
-						document.getElementById("signup_submit").onclick = controller.signupValidation;
-					}
-
-				} else {
-					document.getElementById("loader").innerHTML = "<h2 class=\"warning\">Failed To load Data </h2>";
+					view.responseData(data, response)
 
 				}
-
-
-
 			}
-
-
 		};
-
-
-
 	},
 	callAjax: function (data) {
 
@@ -45,7 +21,7 @@ var model = {
 
 		//alert(data);
 		var xhr = new XMLHttpRequest();
-		xhr.open("POST", "php_files/validation.php", true);
+		xhr.open("POST", "php_files/verification.php", true);
 		xhr.setRequestHeader("content-type", "application/x-www-form-urlencoded");
 		xhr.send(data);
 		xhr.onreadystatechange = function () {
@@ -60,23 +36,16 @@ var model = {
 						window.location = "php_files/home.php";
 					} else if (response === "signup_success") {
 
-						document.getElementById("loader").innerHTML = "<h2 class=\"success\">Signup Success Click to Login</h2>";
+						view.responseMessage("<h2 class=\"success\">Signup Success Click to Login</h2>");
 
+					} else if (response === "signup_failed") {
+						view.responseMessage("<h2 class=\"warning\">Username Already Exists </h2>");
 					} else {
-						//console.log(response);
-
-						document.getElementById("loader").innerHTML = "<h2 class=\"warning\">Filed to Proceed</h2>";
+						view.responseMessage("<h2 class=\"warning\">Incorrect Username or Password </h2>");
 
 					}
-
-
-
 				}
-
-
 			}
-
-
 
 		};
 	}

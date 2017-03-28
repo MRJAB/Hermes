@@ -15,6 +15,7 @@ var model = {
 
 						if (xhr.response !== "empty") {
 							//console.log(xhr.response);
+
 							arr = JSON.parse(xhr.responseText);
 
 						}
@@ -27,6 +28,7 @@ var model = {
 	},
 
 	findFunction: function (arr, fun) {
+
 		if (fun === "searchUser") {
 			view.searchBox(arr);
 		} else if (fun === "loadChat") {
@@ -34,9 +36,13 @@ var model = {
 			view.chat(arr);
 		} else if (fun === "createRequestBox") {
 			view.createRequestBox(arr);
-		}
-		else if (fun === "updateChatList") {
+		} else if (fun === "updateChatList") {
 			view.updateChatList(arr);
+		} else if (fun === "latestChat") {
+			view.latestChat(arr);
+		} else if (fun === "deletetChat") {
+			view.deleteChat(arr);
+
 		}
 	}
 };

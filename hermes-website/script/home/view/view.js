@@ -2,8 +2,7 @@ var view = {
 	removeBox: function () {
 		var search_result = document.getElementById("search_result");
 		search_result.style.visibility = "hidden";
-		var srl = document.getElementById("showRequestList");
-		srl.style.visibility = "hidden";
+		
 	},
 
 	searchBox: function (arr) {
@@ -25,13 +24,8 @@ var view = {
 				searchResult.appendChild(li);
 				a1.onclick = view.chatInitiate;
 
-
-
-
 			}
 		} else {
-
-
 			var li1 = document.createElement("li");
 			var a11 = document.createElement("a");
 			var info1 = document.createTextNode("no record found");
@@ -43,7 +37,51 @@ var view = {
 
 
 	},
+	removeList: function (li) {
+		var ul = document.getElementById("contacts");
+		var lis = ul.getElementsByTagName("li");
+		if(lis.length>1)
+		ul.removeChild(li);
+		
+	},
+	latestChat: function (arr) {
+		var ul = document.getElementById("contacts");
+		if (!arr) {
+			return;
+		}
+		for (var i = 0; i < arr.length; i++) {
+			//echo "<li id='" . $arr[ $i ][ 'ChatID' ] . "' title=''><span>FRENDID:" . $arr[ $i ][ 'Name' ] . " </span></li>";
+			var li = document.createElement("li");
+			var span1 = document.createElement("span");
+			var span2 = document.createElement("span");
+			var val1= document.createTextNode(arr[i].Name);
+			var val2= document.createTextNode("Delete");
 
+			span2.setAttribute("class","deleteButton");
+			li.setAttribute("id", arr[i].ChatID);
+			
+			span1.appendChild(val1);
+			span2.appendChild(val2);
+			li.onclick = controller.startChat;
+			span2.onclick=controller.deleteChat;
+			li.appendChild(span1);
+			li.appendChild(span2)
+			ul.appendChild(li);
+		}
+	},
+	deleteChat:function(arr)
+	{
+		//<img src="../images/live-chat.png"/>
+		console.log(arr);
+		var chat = document.getElementById("chat");
+		chat.innerHTML = "";
+		var fName= document.getElementById("friend_name");
+		var ul=document.getElementById("contacts");
+		fName.innerHTML="Start Chat";
+		var li =document.getElementById(arr[0]);
+		ul.removeChild(li);
+		clearTimeout(timeout);	
+	},
 	chat: function (arr) {
 
 		if (arr) {
@@ -57,12 +95,12 @@ var view = {
 			for (var i = 0; i < arr.length; i++) {
 				var message = arr[i].Content;
 				var user_id = Number(arr[i].fk_SenderUserID);
-				var friend_id = Number(arr[i].fk_ChatID);
+				//var friend_id = Number(arr[i].fk_ChatID);
 				var msg_id = Number(arr[i].MessageID);
-				time = arr[i].RecieveDateTime;
+				var time = arr[i].RecieveDateTime;
 
 				var li = document.createElement("li");
-				li.setAttribute("id", msg_id)
+				li.setAttribute("id", msg_id);
 				var p = document.createElement("p");
 				var span = document.createElement("span");
 				span.className = "time";
@@ -93,7 +131,7 @@ var view = {
 		timeout = setTimeout(function () {
 			model.loadData(data, "loadChat", "load_data.php");
 
-		}, 1000);
+		}, 2000);
 
 	},
 
@@ -102,41 +140,33 @@ var view = {
 		var search_result = document.getElementById("search_result");
 		var id = this.parentNode.id;
 		var username = this.parentNode.getElementsByTagName('a')[0].innerHTML;
-
-		var title = this.parentNode.title;
-
-
 		var contacts = document.getElementById("contacts");
-		if (contacts.getElementsByTagName("li")[0].id === "empty_list") {
+		/*if (contacts.getElementsByTagName("li")[0].id === "empty_list") {
 			contacts.innerHTML = "";
-		}
-
-
+		}*/
 		var li = document.createElement("li");
 		var span = document.createElement("span");
 		var info = document.createTextNode("NEWCHAT:" + username);
-		li.setAttribute("id", 0);
+		li.setAttribute("id", "0");
 		li.setAttribute("name", id);
 		span.appendChild(info);
 		li.appendChild(span);
-		contacts.appendChild(li);
+		var fc = contacts.firstChild;
+		contacts.insertBefore(li, fc);
+	setTimeout(view.removeList, 10000,li);
+
 
 		view.removeBox();
 		li.onclick = controller.startChat;
 
 	},
-	updateChatList:function(arr)
-	{
-		console.log(arr[0]['chatID']);
-		var chatId=arr[0]['chatID'];
+	updateChatList: function (arr) {
+		console.log(arr[0].chatID);
+		var chatId = arr[0].chatID;
 		var fn = document.getElementById("friend_name");
-		fn.setAttribute("value",chatId);
-		
-		
+		fn.setAttribute("value", chatId);
+
+
 
 	}
-
-
-
 };
-//view.updateChatList

@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <title>hermes</title>
-<link rel="stylesheet" type="text/css" href="css/main.css"  />
-<link rel="stylesheet" type="text/css" href="css/login_signup.css" />
+<link rel="stylesheet" type="text/css" href="css/main.css"/>
+<link rel="stylesheet" type="text/css" href="css/login_signup.css"/>
 	<script src="script/index/view/view.js"></script>
 	<script src="script/index/model/model.js"></script>
 	<script src="script/index/controller/controller.js"></script>
@@ -27,10 +27,7 @@
 <div id="main_div">
 <img src="images/icon-get-started.png" id="get_started"/>
 <a href="#" class="link" id="get_started_button" >Get Started</a>
-	
-
-
-</div>
+	</div>
 	<div id="footer">Distributed Chat System 2017. All Rights Reserved. Developed By Hermes</div>
 </body>
 </html>

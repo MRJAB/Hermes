@@ -95,7 +95,24 @@ h2 {
 	font-family: Gill Sans, Gill Sans MT, Myriad Pro, DejaVu Sans Condensed, Helvetica, Arial, " sans-serif";
 	margin: 0 0 0 10%;
 }
-#contacts {
+#contact_tilte
+{
+position: absolute;
+	left: 0px;
+
+	top: 7%;
+	z-index: 300;
+	background-color: #EE4F4F;
+	padding: 15px;
+	width: 250px;
+	margin: 5px;
+	border-bottom:5px solid #000000;
+	color: azure;
+	text-align: center;
+	font-size:18px;
+	border-radius: 10px 10px 0 0;
+}
+#contacts{
 	position: absolute;
 	padding: 0px;
 	left: 0px;
@@ -104,10 +121,11 @@ h2 {
 	overflow-y: scroll;
 	z-index: 300;
 }
-#contacts span, #friend_name span {
+#contacts span, #friend_name span{
 	margin-left: 25px;
 	width: 30px;
 	text-align: right;
+	
 }
 #contacts li {
 	color: #F4F7FA;
@@ -341,3 +359,24 @@ span.activity {
 	font-style: italic;
 	color: white;
 }
+#contacts span.deleteButton
+{
+    color: white;
+    background-color: #8CD600;
+    border-radius: 5px;
+    width: 20%;
+    float: right;
+	padding: 3px;
+	text-align: center;
+
+}
+#contacts span.deleteButton:active
+{
+	color: black;
+	background-color: yellowgreen;
+}
+
+
+
+
+

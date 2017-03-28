@@ -79,6 +79,12 @@ var controller = {
 				console.log("hiiii");
 				return;
 			}
+			if (signupEmail!== signupCemail) {
+				view.warning_nessage("cemail_li", errorMsgs.cemailError1);
+				cemailFlag2  = false;
+				console.log("hellooooo");
+				return;
+			}
 			if (!signupName.match(regExName)) {
 				view.warning_nessage("name_li", errorMsgs.nameError);
 				nameFlag = false;
