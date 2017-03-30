@@ -11,10 +11,8 @@ var view = {
 
 		} else if (data === "signup_page") {
 			document.getElementById("signup_submit").onclick = controller.signupValidation;
-		} else {
-			document.getElementById("loader").innerHTML = "<h2 class=\"warning\">Failed To load Data </h2>";
-
-		}
+		} 
+		
 	},
 
 

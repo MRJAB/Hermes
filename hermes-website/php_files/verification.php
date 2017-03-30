@@ -9,7 +9,7 @@ if ( !empty( $_POST[ 'loginData' ] ) ) {
 	$p = hash( "Sha256", $password );
 	require( "database_connection.php" );
 
-	$query = "CALL sp_User_Select('$username','$password')";
+	$query = "CALL sp_User_Select('$username','$p')";
 	if ( $result = $pdo->query( $query ) ) {
 		$arr = array();
 		while ( $row = $result->fetch( PDO::FETCH_ASSOC ) ) {
@@ -48,7 +48,7 @@ if ( !empty( $_POST[ 'loginData' ] ) ) {
 	$name = $data->name;
 	$p = hash( "Sha256", $password );
 	require( "database_connection.php" );
-	$query = "CALL sp_User_Insert('$username','$password','$email','$name')";
+	$query = "CALL sp_User_Insert('$username','$p','$email','$name')";
 	if ( $result = $pdo->exec( $query ) ) {
 		echo "signup_success";
 	} else {
